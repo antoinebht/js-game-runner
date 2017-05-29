@@ -58,6 +58,21 @@ var obstacleSprite = {
     ]
 };
 
-const FPS = 24;
+var forestBackSprite = {
+    "file" : "sprites/forest_back.png",
+    "width" : 425,
+    "height" : 250,
+    "moveSpeed": 30
+};
+
+var forestMiddleSprite = {
+    "file" : "sprites/forest_middle.png",
+    "width" : 425,
+    "height" : 250,
+    "moveSpeed": 20
+};
+
+
+const FPS = 32;
 const KEY_ARROW_UP = 38;
 const KEY_SPACE = 32;

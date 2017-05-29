@@ -18,8 +18,12 @@ window.onload = function() {
     /**
      * Init game objects (player, obstacles list)
      */
-    var player = createPlayer(knightSprite, 60, 200);
+    var player = createPlayer(knightSprite, 60, 170);
 	var obstacles = [];
+    var backgroundBack = createBackground(forestBackSprite, canvas.width);
+    var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
+
+
 	
     /**
      * Handling the Key Event
@@ -42,6 +46,8 @@ window.onload = function() {
      */
     var render = function() {
         context.clearRect(0,0,canvas.width, canvas.height);
+        backgroundBack.render(context);
+        backgroundMiddle.render(context);
         player.render(context);
 		for (var i = 0; i < obstacles.length; i++) {
 			obstacles[i].render(context);
@@ -72,10 +78,10 @@ window.onload = function() {
 	var idGenerateObstacles = setInterval(function() {
 		var modulation = Math.random();
 		if (modulation >= 0.5) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, 240));
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 210));
 		}
 		else if (modulation < 0.5 && modulation > 0.4) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, 220));
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 190));
 		}
 	},1300);
 
