@@ -1,26 +1,30 @@
 window.onload = function() {
 
-    var createShots = function(x, y, v) {
-        return {
-            move : function() {
-
-            }
-        };
-    };
-
+    /**
+     * Get the HTML canvas element from the HTML document.
+     */
     var canvas = document.getElementById("game-canvas");
     if (!canvas || !canvas.getContext) {
         return;
     }
-
+    /**
+     * Get the context of the canvas element.
+     */
     var context = canvas.getContext('2d');
     if (!context) {
         return;
     }
 
-    var player = createPlayer(knightSprite,20, canvas.height/2);
+    /**
+     * Init game objects (player, obstacles list)
+     */
+    var player = createPlayer(knightSprite, 60, 200);
 	var obstacles = [];
 	
+    /**
+     * Handling the Key Event
+     * @param {*} e 
+     */
     var handleKeyPressed = function(e) {
         switch (e.keyCode) {
             case KEY_ARROW_UP:
@@ -33,7 +37,9 @@ window.onload = function() {
     };
     window.document.addEventListener("keydown", handleKeyPressed, false);
 
-
+    /**
+     * The global render function. Display on the canvas the player, the obstacles, shots, decorations
+     */
     var render = function() {
         context.clearRect(0,0,canvas.width, canvas.height);
         player.render(context);
@@ -42,10 +48,14 @@ window.onload = function() {
 		}
     };
 
-
+    /**
+     * The main game Loop.
+     * Render, animate game objects.
+     */
     var loop = function() {
         render();
 		for (var i = 0; i < obstacles.length; i++) {
+            // The obstacle is out of the canvas.
 			if (obstacles[i].getX() < 0) {
 				obstacles.shift();
 			}
@@ -57,34 +67,15 @@ window.onload = function() {
                 }
 			}
 		}
-        // player.animate();
-    };
-
-	var checkColision = function(hb1, hb2) {
-		var colX = false;
-        var colY = false;
-
-        if (hb2.x < hb1.x + hb1.width && hb2.x > hb1.x)
-            colX = true;
-        if (hb1.x < hb2.x + hb2.width && hb1.x > hb2.x)
-            colX = true;
-
-        if (hb2.y < hb1.y + hb1.height && hb2.y > hb1.y)
-            colY = true;
-        if (hb1.y < hb2.y + hb2.height && hb1.y > hb2.y)
-            colY = true;
-
-        return colX && colY;
-	};
+    };	
 	
-	
-	var idGenerateObstackes = setInterval(function() {
+	var idGenerateObstacles = setInterval(function() {
 		var modulation = Math.random();
 		if (modulation >= 0.5) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, canvas.height/2+40));
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 240));
 		}
 		else if (modulation < 0.5 && modulation > 0.4) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, canvas.height/2+20));
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 220));
 		}
 	},1300);
 

@@ -84,6 +84,7 @@ var createPlayer = function(sprite, x, y) {
         }
     }, speed);
 
+    // Expose Player properties & methods
     return {
         render : function(context) {
             var action = getCurrentAction();
