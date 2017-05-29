@@ -1,43 +1,4 @@
 window.onload = function() {
-	
-	var createObstacle = function(sprite,x,y) {
-		var state = "normal";
-        var step = 0;
-
-		var getCurrentAction = function() {
-            for (var i=0; i<sprite["actions"].length; i++) {
-                if (sprite["actions"][i]["name"] === state) {
-                    return sprite["actions"][i];
-                }
-            }
-        };
-
-		return {
-			move : function() {
-				x -= 5;
-			},	
-			getX : function() {
-				return x;
-			},
-			getY : function() {
-				return y;
-			},
-			render : function(context) {
-				var action = getCurrentAction();
-                context.drawImage(
-                    document.getElementById(sprite["file"]), 
-                    action["x"]+step*action["width"], 
-                    action["y"],
-                    action["width"], 
-                    action["height"], 
-		 			x,
-					y,
-                    24,
-					24
-                );
-			}
-		};
-	};
 
     var createShots = function(x, y, v) {
         return {
@@ -46,9 +7,6 @@ window.onload = function() {
             }
         };
     };
-
-   
-
 
     var canvas = document.getElementById("game-canvas");
     if (!canvas || !canvas.getContext) {
