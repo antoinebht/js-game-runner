@@ -25,7 +25,15 @@ var knightSprite = {
             "height" : 64,
             "number" : 13
         }
-    ]
+    ],
+    "hitbox": {
+        "standing" : {
+            "x" : 23,
+            "y" : 18,
+            "width" : 17,
+            "height" : 43             
+        }
+    }
 }
 
 var obstacleSprite = {
@@ -55,98 +63,6 @@ const KEY_ARROW_UP = 38;
 const KEY_SPACE = 32;
 
 window.onload = function() {
-
-    var createPlayer = function(sprite, posX, posY) {
-        var state = "walk";
-        var step = 0;
-        var speed = 100;
-        var shootLoad = 0;
-		var animateAction = undefined;
-		var actionInProgress = false;
-
-        var getCurrentAction = function() {
-            for (var i=0; i<sprite["actions"].length; i++) {
-                if (sprite["actions"][i]["name"] === state) {
-                    return sprite["actions"][i];
-                }
-            }
-        };
-
-		var jump = function() {
-			if (!actionInProgress) {
-				actionInProgress = true;
-				state = "jump";
-		        step = 0;
-				animateAction = function() {
-					if (step == getCurrentAction().number-1) {
-						walk();
-						actionInProgress = false;
-					}
-					if (step >= getCurrentAction().number/2-1) {
-						posY += 20;
-					}
-					else {
-						posY -= 20;
-					}
-				}
-			}
-		};
-
-		var shoot = function() {
-			if (!actionInProgress) {
-				actionInProgress = true;
-				step = 0;
-				state = "shoot";
-				animateAction = function() {
-				    if (step === getCurrentAction().number-1) {
-				       	walk();
-						actionInProgress = false;
-				    }
-				}
-			}
-		}
-
-		var walk = function() {
-			state = "walk";
-			step = 0;
-			animateAction = undefined;
-		}
-
-        var idAnimate = setInterval(function() {
-            var action = getCurrentAction();
-            step = (step+1) % action.number;
-			if (animateAction !== undefined) {
-				animateAction();
-			}
-        }, speed);
-
-        return {
-            render : function(context) {
-                var action = getCurrentAction();
-                context.drawImage(
-                    document.getElementById(sprite["file"]), 
-                    action["x"]+step*action["width"], 
-                    action["y"],
-                    action["width"], 
-                    action["height"], 
-		 			posX,
-					posY,
-                    action["width"], 
-                    action["height"]
-                );
-            },
-			jump : jump,
-			walk : walk,
-            shoot : shoot,
-			getX : function() {
-				return posX;
-			},
-			getY : function() {
-				return posY;
-			}
-        }
-    };
-
 	
 	var createObstacle = function(sprite,x,y) {
 		var state = "normal";
