@@ -38,6 +38,8 @@ window.onload = function() {
         var step = 0;
         var speed = 100;
         var shootLoad = 0;
+		var animateAction = undefined;
+		var actionInProgress = false;
 
         var getCurrentAction = function() {
             for (var i=0; i<sprite["actions"].length; i++) {
@@ -47,9 +49,52 @@ window.onload = function() {
             }
         };
 
+		var jump = function() {
+			if (!actionInProgress) {
+				actionInProgress = true;
+				state = "jump";
+		        step = 0;
+				animateAction = function() {
+					if (step == getCurrentAction().number-1) {
+						walk();
+						actionInProgress = false;
+					}
+					if (step >= getCurrentAction().number/2-1) {
+						posY += 20;
+					}
+					else {
+						posY -= 20;
+					}
+				}
+			}
+		};
+
+		var shoot = function() {
+			if (!actionInProgress) {
+				actionInProgress = true;
+				step = 0;
+				state = "shoot";
+				animateAction = function() {
+				    if (step === getCurrentAction().number-1) {
+				       	walk();
+						actionInProgress = false;
+				    }
+				}
+			}
+		}
+
+		var walk = function() {
+			state = "walk";
+			step = 0;
+			animateAction = undefined;
+		}
+
         var idAnimate = setInterval(function() {
             var action = getCurrentAction();
-            step = (step+1)% action.number;
+            step = (step+1) % action.number;
+			if (animateAction !== undefined) {
+				animateAction();
+			}
         }, speed);
 
         return {
@@ -62,25 +107,14 @@ window.onload = function() {
                     action["width"], 
                     action["height"], 
 		 			20,
-					200,
+					posY,
                     action["width"], 
                     action["height"]
                 );
             },
-            setAction : function(name) {
-                state = name;
-                step = step%getCurrentAction().number;
-            },
-            loadShot : function() {
-                shootLoad++;
-                if (shootLoad == 13) {
-                    this.shoot();
-                }
-            },
-            shoot : function() {
-                shootLoad = 0;
-                console.log("shoot");
-            }
+			jump : jump,
+			walk : walk,
+            shoot : shoot
         }
     };
 
@@ -111,25 +145,14 @@ window.onload = function() {
     var handleKeyPressed = function(e) {
         switch (e.keyCode) {
             case KEY_ARROW_UP:
-                player.setAction("jump");
-                player.move();
+                player.jump();
                 break;
             case KEY_SPACE:
-                player.setAction("shoot");
-                player.loadShot();
+               	player.shoot();
                 break;
         }
     };
     window.document.addEventListener("keydown", handleKeyPressed, false);
-
-    var handleKeyUp = function(e) {
-        switch (e.keyCode) {
-            case KEY_SPACE:
-                player.shoot();
-                break;
-        }
-    };
-    window.document.addEventListener("keyup", handleKeyUp, false);
 
 
     var render = function() {
