@@ -24,9 +24,32 @@ var knightSprite = {
             "width" : 64,
             "height" : 64,
             "number" : 13
-        },
+        }
     ]
 }
+
+var obstacleSprite = {
+    "file": "sprites/box.png",
+    "actions" : [
+        {
+            "name" : "normal",
+            "x" : 0,
+            "y" : 0,
+            "width" : 64,
+            "height" : 64,
+            "number" : 1
+        },
+		{
+            "name" : "destruction",
+            "x" : 0,
+            "y" : 0,
+            "width" : 64,
+            "height" : 64,
+            "number" : 9
+        }
+    ]
+}
+
 
 const KEY_ARROW_UP = 38;
 const KEY_SPACE = 32;
@@ -118,6 +141,45 @@ window.onload = function() {
         }
     };
 
+	
+	var createObstacle = function(sprite,x,y) {
+		var state = "normal";
+        var step = 0;
+
+		var getCurrentAction = function() {
+            for (var i=0; i<sprite["actions"].length; i++) {
+                if (sprite["actions"][i]["name"] === state) {
+                    return sprite["actions"][i];
+                }
+            }
+        };
+
+		return {
+			move : function() {
+				x -= 20;
+			},	
+			getX : function() {
+				return x;
+			},
+			getY : function() {
+				return y;
+			},
+			render : function(context) {
+				var action = getCurrentAction();
+                context.drawImage(
+                    document.getElementById(sprite["file"]), 
+                    action["x"]+step*action["width"], 
+                    action["y"],
+                    action["width"], 
+                    action["height"], 
+		 			x,
+					y,
+                    action["width"], 
+                    action["height"]
+                );
+			}
+		};
+	};
 
     var createShots = function(x, y, v) {
         return {
@@ -141,7 +203,9 @@ window.onload = function() {
     }
 
     var player = createPlayer(knightSprite, canvas.width/2, canvas.height/2);
-   
+	var obstacles = [];
+	obstacles.push(createObstacle(obstacleSprite, 700, canvas.height/2));
+	
     var handleKeyPressed = function(e) {
         switch (e.keyCode) {
             case KEY_ARROW_UP:
@@ -158,11 +222,17 @@ window.onload = function() {
     var render = function() {
         context.clearRect(0,0,canvas.width, canvas.height);
         player.render(context);
+		for (var i = 0; i < obstacles.length; i++) {
+			obstacles[i].render(context);
+		}
     };
 
 
     var loop = function() {
         render();
+		for (var i = 0; i < obstacles.length; i++) {
+			obstacles[i].move();
+		}
         // player.animate();
     };
 
