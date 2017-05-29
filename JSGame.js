@@ -259,7 +259,10 @@ window.onload = function() {
 		if (modulation >= 0.5) {
 			obstacles.push(createObstacle(obstacleSprite, canvas.width, canvas.height/2+40));
 		}
-	},1000);
+		else if (modulation < 0.5 && modulation > 0.4) {
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, canvas.height/2+20));
+		}
+	},1300);
 
     var idLoop = setInterval(loop, 1000/FPS);
 };
