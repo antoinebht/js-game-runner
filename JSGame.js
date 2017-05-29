@@ -15,7 +15,7 @@ var knightSprite = {
             "y" : 192,
             "width" : 64,
             "height" : 64,
-            "number" : 7
+            "number" : 13
 		},
         {
             "name" : "shoot",
@@ -129,7 +129,7 @@ window.onload = function() {
                     action["y"],
                     action["width"], 
                     action["height"], 
-		 			20,
+		 			posX,
 					posY,
                     action["width"], 
                     action["height"]
@@ -137,7 +137,13 @@ window.onload = function() {
             },
 			jump : jump,
 			walk : walk,
-            shoot : shoot
+            shoot : shoot,
+			getX : function() {
+				return posX;
+			},
+			getY : function() {
+				return posY;
+			}
         }
     };
 
@@ -156,7 +162,7 @@ window.onload = function() {
 
 		return {
 			move : function() {
-				x -= 20;
+				x -= 5;
 			},	
 			getX : function() {
 				return x;
@@ -174,8 +180,8 @@ window.onload = function() {
                     action["height"], 
 		 			x,
 					y,
-                    action["width"], 
-                    action["height"]
+                    24,
+					24
                 );
 			}
 		};
@@ -202,9 +208,8 @@ window.onload = function() {
         return;
     }
 
-    var player = createPlayer(knightSprite, canvas.width/2, canvas.height/2);
+    var player = createPlayer(knightSprite,20, canvas.height/2);
 	var obstacles = [];
-	obstacles.push(createObstacle(obstacleSprite, 700, canvas.height/2));
 	
     var handleKeyPressed = function(e) {
         switch (e.keyCode) {
@@ -231,10 +236,30 @@ window.onload = function() {
     var loop = function() {
         render();
 		for (var i = 0; i < obstacles.length; i++) {
-			obstacles[i].move();
+			if (obstacles[i].getX() < 0) {
+				obstacles.shift();
+			}
+			else {
+				obstacles[i].move();
+				checkColision(obstacles[i]);
+			}
 		}
         // player.animate();
     };
+
+	var checkColision = function(box) {
+		if (box.getX() < player.getX() && box.getY() > player.getY()) {
+			console.log("perdu");
+		}
+	};
+	
+	
+	var idGenerateObstackes = setInterval(function() {
+		var modulation = Math.random();
+		if (modulation >= 0.5) {
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, canvas.height/2+40));
+		}
+	},1000);
 
     var idLoop = setInterval(loop, 1000/FPS);
 };
