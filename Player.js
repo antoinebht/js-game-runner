@@ -107,6 +107,15 @@ var createPlayer = function(sprite, x, y) {
         },
         getY : function() {
             return y;
+        },
+        getHitBox : function() {
+            var hitbox = sprite["hitbox"]["standing"];
+            return {
+                x : hitbox["x"] + x,
+                y : hitbox["y"] + y,
+                width : hitbox["width"],
+                height : hitbox["height"]
+            }
         }
     }
 };

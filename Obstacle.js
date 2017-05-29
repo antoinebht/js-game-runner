@@ -20,7 +20,7 @@ var createObstacle = function(sprite, x, y) {
      */
     var getCurrentAction = function() {
         for (var i=0; i<sprite["actions"].length; i++) {
-            if (sprite["actions"][i]["name"] === state) {
+            if (sprite["actions"][i]["name"] === currentActionName) {
                 return sprite["actions"][i];
             }
         }
@@ -49,6 +49,14 @@ var createObstacle = function(sprite, x, y) {
                 24,
                 24
             );
+        },
+        getHitBox : function() {
+            return {
+                "x" : x+23,
+                "y" : y+18,
+                "width" : 17,
+                "height" : 43             
+            };
         }
     };
 };
