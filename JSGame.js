@@ -20,6 +20,7 @@ window.onload = function() {
      */
     var player = createPlayer(knightSprite, 60, 170);
 	var obstacles = [];
+    var shots = [];
     var backgroundBack = createBackground(forestBackSprite, canvas.width);
     var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
     var backgroundFront = createBackground(forestFrontSprite, canvas.width);
@@ -36,7 +37,7 @@ window.onload = function() {
                 player.jump();
                 break;
             case KEY_SPACE:
-               	player.shoot();
+               	player.shoot(shots);
                 break;
         }
     };
@@ -58,6 +59,9 @@ window.onload = function() {
         for (var i = 0; i < obstacles.length; i++) {
 			obstacles[i].render(context);
 		}
+        for (var i = 0; i < shots.length; i++) {
+			shots[i].render(context);
+		}
     };
 
     /**
@@ -67,17 +71,30 @@ window.onload = function() {
     var loop = function() {
         render();
 		for (var i = 0; i < obstacles.length; i++) {
+            if (obstacles[i].isDestroy()) {
+                obstacles.splice(i, 1);
+            }
             // The obstacle is out of the canvas.
-			if (obstacles[i].getX() < 0) {
-				obstacles.shift();
+			else if (obstacles[i].getX() < 0) {
+				obstacles.splice(i, 1);
 			}
 			else {
 				obstacles[i].move();
 				if (checkColision(player.getHitBox(), obstacles[i].getHitBox())) {
                     console.log("collide");
-				    obstacles.shift();
+				    obstacles.splice(i, 1);
                 }
 			}
+		}
+
+        for (var j = 0; j < shots.length; j++) {
+            for (var i = 0; i < obstacles.length; i++) {
+                if (checkColision(shots[j].getHitBox(), obstacles[i].getHitBox())) {
+                    obstacles[i].destroy();
+				    shots.splice(j, 1);
+                    break;
+                }
+            }
 		}
     };	
 	

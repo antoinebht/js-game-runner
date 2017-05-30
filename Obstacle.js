@@ -26,15 +26,29 @@ var createObstacle = function(sprite, x, y) {
         }
     };
 
+    var endDestruction = false;
+
     return {
         move : function() {
             x -= 5;
-        },	
+        },
+        destroy : function() {
+            currentActionName = "destruction";
+            setInterval(function(){
+                step++;
+                if (step == 9) {
+                    endDestruction = true;
+                }
+            }, 100);
+        },
         getX : function() {
             return x;
         },
         getY : function() {
             return y;
+        },
+        isDestroy : function(){
+            return endDestruction;    
         },
         render : function(context) {
             var action = getCurrentAction();
@@ -52,10 +66,10 @@ var createObstacle = function(sprite, x, y) {
         },
         getHitBox : function() {
             return {
-                "x" : x+23,
-                "y" : y+18,
-                "width" : 17,
-                "height" : 43             
+                "x" : x,
+                "y" : y,
+                "width" : 24,
+                "height" : 24             
             };
         }
     };

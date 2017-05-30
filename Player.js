@@ -57,11 +57,14 @@ var createPlayer = function(sprite, x, y) {
         }
     };
 
-    var shoot = function() {
+    var shoot = function(shotsContainer) {
         if (doDuringAction === undefined) {
             step = 0;
             currentActionName = "shoot";
             doDuringAction = function() {
+                if (step === 8){
+                    shotsContainer.push(createShots(arrow, x+30, y+30));
+                }
                 if (step === getCurrentAction().number-1) {
                     walk();
                     actionInProgress = false;

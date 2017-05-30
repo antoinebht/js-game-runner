@@ -58,6 +58,15 @@ var obstacleSprite = {
     ]
 };
 
+var arrow = {
+    "file" : "sprites/arrow.png",
+    "x" : 0,
+    "y" : 0,
+    "width" : 35,
+    "height" : 5,
+    "speed": 12
+};
+
 var forestBackSprite = {
     "file" : "sprites/forest_back.png",
     "width" : 425,
