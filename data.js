@@ -62,14 +62,21 @@ var forestBackSprite = {
     "file" : "sprites/forest_back.png",
     "width" : 425,
     "height" : 250,
-    "moveSpeed": 30
+    "moveSpeed": 35
 };
 
 var forestMiddleSprite = {
     "file" : "sprites/forest_middle.png",
     "width" : 425,
     "height" : 250,
-    "moveSpeed": 20
+    "moveSpeed": 30
+};
+
+var forestFrontSprite = {
+    "file" : "sprites/forest_front.png",
+    "width" : 425,
+    "height" : 250,
+    "moveSpeed": 23
 };
 
 

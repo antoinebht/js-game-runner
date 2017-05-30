@@ -22,6 +22,7 @@ window.onload = function() {
 	var obstacles = [];
     var backgroundBack = createBackground(forestBackSprite, canvas.width);
     var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
+    var backgroundFront = createBackground(forestFrontSprite, canvas.width);
 
 
 	
@@ -46,10 +47,15 @@ window.onload = function() {
      */
     var render = function() {
         context.clearRect(0,0,canvas.width, canvas.height);
+        // Backgrounds
         backgroundBack.render(context);
         backgroundMiddle.render(context);
+        backgroundFront.render(context);
+        
         player.render(context);
-		for (var i = 0; i < obstacles.length; i++) {
+
+        // Game Objects
+        for (var i = 0; i < obstacles.length; i++) {
 			obstacles[i].render(context);
 		}
     };
