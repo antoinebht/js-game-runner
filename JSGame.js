@@ -21,18 +21,12 @@ window.onload = function() {
     var player = createPlayer(knightSprite, 60, 170);
 	var obstacles = [];
     var shots = [];
-<<<<<<< HEAD
-    var backgroundBack = createBackground(cityBackSprite, canvas.width);
-    var backgroundMiddle = createBackground(cityMiddleSprite, canvas.width);
-    var backgroundFront = createBackground(cityFrontSprite, canvas.width);
-=======
 	var level = 1;
 	var box_nb = 0;
 	var speed = 1000;
     var backgroundBack = createBackground(forestBackSprite, canvas.width);
     var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
     var backgroundFront = createBackground(forestFrontSprite, canvas.width);
->>>>>>> ee8ad6b04b3b558f4b2425ceac24b099c562a27d
 
 
 	
@@ -47,9 +41,6 @@ window.onload = function() {
                 break;
             case KEY_SPACE:
                	player.shoot(shots);
-                backgroundBack.setSprite(mountainBackSprite);
-                backgroundMiddle.setSprite(mountainMiddleSprite);
-                backgroundFront.setSprite(mountainFrontSprite);
                 break;
         }
     };
@@ -151,5 +142,21 @@ window.onload = function() {
 	}, 1500);
 
     var idLoop = setInterval(loop, speed/FPS);
+
+    var bg = true;
+    var idChangeBG = setInterval(function() {
+        if (bg) {
+            backgroundBack.setSprite(mountainBackSprite);
+            backgroundMiddle.setSprite(mountainMiddleSprite);
+            backgroundFront.setSprite(mountainFrontSprite);
+            bg = false;
+        }
+        else {
+            backgroundBack.setSprite(forestBackSprite);
+            backgroundMiddle.setSprite(forestMiddleSprite);
+            backgroundFront.setSprite(forestFrontSprite);
+            bg = true;
+        }
+    }, 30000);
 };
 
