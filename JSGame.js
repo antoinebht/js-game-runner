@@ -66,10 +66,10 @@ window.onload = function() {
 			shots[i].render(context);
 		}
 		
-		context.font = "20px Arial bold";
+		context.font = "12px PressStart";
 		context.fillStyle = "white"
-		context.fillText("Level : " + level,canvas.width - 100,60);
-		context.fillText(box_nb,canvas.width - 75,80);
+		context.fillText("Level:" + level,canvas.width - 105,60);
+		context.fillText(box_nb,canvas.width - 70,80);
 		
 		for (var i = 1; i <= player.getLife(); i++) {
 			var img = document.getElementById("heart");
