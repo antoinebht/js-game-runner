@@ -88,6 +88,48 @@ var forestFrontSprite = {
     "moveSpeed": 23
 };
 
+var mountainBackSprite = {
+    "file" : "sprites/mountain_back.png",
+    "width" : 850,
+    "height" : 250,
+    "moveSpeed": 35
+};
+
+var mountainMiddleSprite = {
+    "file" : "sprites/mountain_middle.png",
+    "width" : 850,
+    "height" : 250,
+    "moveSpeed": 30
+};
+
+var mountainFrontSprite = {
+    "file" : "sprites/mountain_front.png",
+    "width" : 850,
+    "height" : 250,
+    "moveSpeed": 20
+};
+
+var cityBackSprite = {
+    "file" : "sprites/city_back.png",
+    "width" : 425,
+    "height" : 250,
+    "moveSpeed": 35
+};
+
+var cityMiddleSprite = {
+    "file" : "sprites/city_middle.png",
+    "width" : 654,
+    "height" : 250,
+    "moveSpeed": 30
+};
+
+var cityFrontSprite = {
+    "file" : "sprites/city_front.png",
+    "width" : 654,
+    "height" : 250,
+    "moveSpeed": 20
+};
+
 
 const FPS = 32;
 const KEY_ARROW_UP = 38;

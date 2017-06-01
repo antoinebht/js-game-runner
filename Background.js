@@ -41,6 +41,9 @@ var createBackground = function(sprite, canvasW) {
                     sprite["height"]
                 );
             }
+        },
+        setSprite : function(nSprite) {
+            sprite = nSprite;
         }
     }
 }

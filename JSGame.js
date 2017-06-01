@@ -21,9 +21,9 @@ window.onload = function() {
     var player = createPlayer(knightSprite, 60, 170);
 	var obstacles = [];
     var shots = [];
-    var backgroundBack = createBackground(forestBackSprite, canvas.width);
-    var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
-    var backgroundFront = createBackground(forestFrontSprite, canvas.width);
+    var backgroundBack = createBackground(cityBackSprite, canvas.width);
+    var backgroundMiddle = createBackground(cityMiddleSprite, canvas.width);
+    var backgroundFront = createBackground(cityFrontSprite, canvas.width);
 
 
 	
@@ -38,6 +38,9 @@ window.onload = function() {
                 break;
             case KEY_SPACE:
                	player.shoot(shots);
+                backgroundBack.setSprite(mountainBackSprite);
+                backgroundMiddle.setSprite(mountainMiddleSprite);
+                backgroundFront.setSprite(mountainFrontSprite);
                 break;
         }
     };
