@@ -62,6 +62,7 @@ var createPlayer = function(sprite, x, y) {
             step = 0;
             currentActionName = "shoot";
             doDuringAction = function() {
+                step++;
                 if (step === 8){
                     shotsContainer.push(createShots(arrow, x+30, y+30));
                 }

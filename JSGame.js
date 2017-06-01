@@ -100,10 +100,10 @@ window.onload = function() {
 	
 	var idGenerateObstacles = setInterval(function() {
 		var modulation = Math.random();
-		if (modulation >= 0.5) {
+		if (modulation >= 0.6) {
 			obstacles.push(createObstacle(obstacleSprite, canvas.width, 210));
 		}
-		else if (modulation < 0.5 && modulation > 0.4) {
+		else if (modulation < 0.5 && modulation > 0.2) {
 			obstacles.push(createObstacle(obstacleSprite, canvas.width, 190));
 		}
 	},1300);
