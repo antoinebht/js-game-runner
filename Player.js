@@ -22,6 +22,10 @@ var createPlayer = function(sprite, x, y) {
      * A function execute during an action.
      */
     var doDuringAction = undefined;
+	/**
+	* life
+	*/
+	var life = 3;
 
     /**
      * Get the json sprite representation for the current action name.
@@ -113,6 +117,12 @@ var createPlayer = function(sprite, x, y) {
         getY : function() {
             return y;
         },
+		removeLife : function() {
+			life = life - 1;
+		},
+		getLife : function() {
+			return life;
+		},
         getHitBox : function() {
             var hitbox = sprite["hitbox"]["standing"];
             return {
