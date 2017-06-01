@@ -94,7 +94,7 @@ window.onload = function() {
 				obstacles.splice(i, 1);
 				box_nb++;
 			}
-			else {
+			else if (!obstacles[i].isInDestruction()){
 				obstacles[i].move();
 				if (checkColision(player.getHitBox(), obstacles[i].getHitBox())) {
 					player.removeLife();
@@ -105,7 +105,7 @@ window.onload = function() {
 
         for (var j = 0; j < shots.length; j++) {
             for (var i = 0; i < obstacles.length; i++) {
-                if (checkColision(shots[j].getHitBox(), obstacles[i].getHitBox())) {
+                if (!obstacles[i].isInDestruction() && checkColision(shots[j].getHitBox(), obstacles[i].getHitBox())) {
                     obstacles[i].destroy();
 				    shots.splice(j, 1);
                     break;

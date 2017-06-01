@@ -27,6 +27,7 @@ var createObstacle = function(sprite, x, y) {
     };
 
     var endDestruction = false;
+    var inDestruction = false;
 
     return {
         move : function() {
@@ -34,6 +35,7 @@ var createObstacle = function(sprite, x, y) {
         },
         destroy : function() {
             currentActionName = "destruction";
+            inDestruction = true;
             setInterval(function(){
                 step++;
                 if (step == 9) {
@@ -49,6 +51,9 @@ var createObstacle = function(sprite, x, y) {
         },
         isDestroy : function(){
             return endDestruction;    
+        },
+        isInDestruction : function() {
+            return inDestruction;
         },
         render : function(context) {
             var action = getCurrentAction();
