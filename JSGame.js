@@ -24,11 +24,23 @@ window.onload = function() {
 	var level = 1;
 	var box_nb = 0;
 	var speed = 1000;
+    var speedObstacle = 1500;
     var backgroundBack = createBackground(forestBackSprite, canvas.width);
     var backgroundMiddle = createBackground(forestMiddleSprite, canvas.width);
     var backgroundFront = createBackground(forestFrontSprite, canvas.width);
 
-
+    var generateObstacle = function() {
+        var modulation = Math.random();
+		if (modulation >= 0.6) {
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 210));
+		}
+		else if (modulation < 0.5 && modulation > 0.2) {
+			obstacles.push(createObstacle(obstacleSprite, canvas.width, 190));
+		}
+        else if (modulation < 0.8) {
+            obstacles.push(createMysteriousObstacle(mysteriousObstacleSprite, canvas.width, 190))
+        }
+    }
 	
     /**
      * Handling the Key Event
@@ -97,7 +109,7 @@ window.onload = function() {
 			else if (!obstacles[i].isInDestruction()){
 				obstacles[i].move();
 				if (checkColision(player.getHitBox(), obstacles[i].getHitBox())) {
-					player.removeLife();
+					obstacles[i].playerCollision(player);
 				    obstacles.splice(i, 1);
                 }
 			}
@@ -106,7 +118,7 @@ window.onload = function() {
         for (var j = 0; j < shots.length; j++) {
             for (var i = 0; i < obstacles.length; i++) {
                 if (!obstacles[i].isInDestruction() && checkColision(shots[j].getHitBox(), obstacles[i].getHitBox())) {
-                    obstacles[i].destroy();
+                    obstacles[i].destroy(player);
 				    shots.splice(j, 1);
                     break;
                 }
@@ -124,22 +136,17 @@ window.onload = function() {
 		// increase level and speed
 		if (box_nb === 10 * level && speed > 300) {
 			speed = speed - 100;
+            speedObstacle = speedObstacle - 100;
 			clearInterval(idLoop);
+            clearInterval(idGenerateObstacles);
 			idLoop = setInterval(loop, speed/FPS);
+            idGenerateObstacles = setInterval(generateObstacle, speedObstacle);
 			level++;
 		}
 		
     };	
 	
-	var idGenerateObstacles = setInterval(function() {
-		var modulation = Math.random();
-		if (modulation >= 0.6) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, 210));
-		}
-		else if (modulation < 0.5 && modulation > 0.2) {
-			obstacles.push(createObstacle(obstacleSprite, canvas.width, 190));
-		}
-	}, 1500);
+	var idGenerateObstacles = setInterval(generateObstacle, speedObstacle);
 
     var idLoop = setInterval(loop, speed/FPS);
 

@@ -120,6 +120,9 @@ var createPlayer = function(sprite, x, y) {
 		removeLife : function() {
 			life = life - 1;
 		},
+        addLife : function () {
+            life = life + 1;
+        },
 		getLife : function() {
 			return life;
 		},

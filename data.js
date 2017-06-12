@@ -58,6 +58,28 @@ var obstacleSprite = {
     ]
 };
 
+var mysteriousObstacleSprite = {
+    "file": "sprites/myster_box.png",
+    "actions" : [
+        {
+            "name" : "normal",
+            "x" : 0,
+            "y" : 0,
+            "width" : 64,
+            "height" : 64,
+            "number" : 1
+        },
+		{
+            "name" : "destruction",
+            "x" : 0,
+            "y" : 0,
+            "width" : 64,
+            "height" : 64,
+            "number" : 9
+        }
+    ]
+};
+
 var arrow = {
     "file" : "sprites/arrow.png",
     "x" : 0,

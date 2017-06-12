@@ -4,7 +4,7 @@
  * @param {*} x The x-axis position.
  * @param {*} y The y-axis position.
  */
-var createObstacle = function(sprite, x, y) {
+var createMysteriousObstacle = function(sprite, x, y) {
     /**
      * The name of the current action of the player.
      * Used to get the right sprite in the JSON.
@@ -14,6 +14,13 @@ var createObstacle = function(sprite, x, y) {
      * The current step of the animation of the player.
      */
     var step = 0;
+
+    /**
+     * Randomize the behavior
+     */
+    var r = Math.random();
+    console.log(r);
+     var behavior = r > 0.4 ? 1 : 0;
 
     /**
      * Get the json sprite representation for the current action name.
@@ -42,9 +49,14 @@ var createObstacle = function(sprite, x, y) {
                     endDestruction = true;
                 }
             }, 100);
-        },
+        }, 
         playerCollision : function(player) {
-            player.removeLife();
+            if (behavior == 0) {
+                player.removeLife();
+            }
+            else {
+                player.addLife();
+            }
         },
         getX : function() {
             return x;
